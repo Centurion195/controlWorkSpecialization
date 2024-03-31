@@ -1,9 +1,18 @@
 package animals;
 
+import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Donkey extends Animal implements PackAnimal {
     protected String type;
     protected String name;
     protected String dateOfBirthday;
+    protected Map<String, String> commands = new HashMap<>();
+    public Map<String, String> getCommands() {
+        return commands;
+    }
 
     public Donkey(String name, String dateOfBirthday) {
         this.name = name;
@@ -13,11 +22,16 @@ public class Donkey extends Animal implements PackAnimal {
     }
 
     public String executeCommand(String com) {
-        return super.executeCommand(com);
+        return commands.getOrDefault(com, "=> Я этого не умею!");
     }
 
     public String trainCommand(String command, String action) {
-        return super.trainCommand(command, action);
+        if (!commands.containsKey(command)) {
+            commands.put(command, action);
+            return "=> Я запомнил!";
+        } else {
+            return "=> Я это уже умею!";
+        }
     }
 
     @Override

@@ -9,23 +9,30 @@ public class Camel extends Animal implements PackAnimal {
     protected String type;
     protected String name;
     protected String dateOfBirthday;
-    @Getter
-    protected Map<String, String> commands;
+    protected Map<String, String> commands = new HashMap<>();
+
+    public Map<String, String> getCommands() {
+        return commands;
+    }
 
     public Camel(String name, String dateOfBirthday) {
         this.name = name;
         this.dateOfBirthday = dateOfBirthday;
         type = "Верблюд";
-        commands = new HashMap<>();
         commands.put("Плюйся", "Плююсь!");
     }
 
     public String executeCommand(String com) {
-        return super.executeCommand(com);
+        return commands.getOrDefault(com, "=> Я этого не умею!");
     }
 
     public String trainCommand(String command, String action) {
-        return super.trainCommand(command, action);
+        if (!commands.containsKey(command)) {
+            commands.put(command, action);
+            return "=> Я запомнил!";
+        } else {
+            return "=> Я это уже умею!";
+        }
     }
 
     @Override

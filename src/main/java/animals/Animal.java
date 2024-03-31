@@ -8,19 +8,9 @@ import java.util.Map;
 public abstract class Animal {
     protected String name;
     protected String dateOfBirthday;
-    @Getter
-    protected Map<String, String> commands = new HashMap<>();
+    public abstract Map<String, String> getCommands();
 
-    public String executeCommand(String com) {
-        return commands.getOrDefault(com, "=> Я этого не умею!");
-    }
+    public abstract String executeCommand(String com);
 
-    public String trainCommand(String command, String action) {
-        if (!commands.containsKey(command)) {
-            commands.put(command, action);
-            return "=> Я запомнил!";
-        } else {
-            return "=> Я это уже умею!";
-        }
-    }
+    public abstract String trainCommand(String command, String action);
 }
